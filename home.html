@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designer Portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;600&family=Playball&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* CSS Variáveis */
+    :root {
+      --bg-color: #f4efe6;
+      --text-dark: #2b1a10;
+      --accent-blue: #7ab4e1;
+      --accent-blue-hover: #5a9bc9;
+      
+      --font-serif: 'DM Serif Display', serif;
+      --font-sans: 'Inter', sans-serif;
+      --font-cursive: 'Playball', cursive;
+      
+      --spacing-section: 120px;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Utilitários de Tipografia */
+    .title-serif {
+      font-family: var(--font-serif);
+      font-size: 5rem;
+      letter-spacing: -2px;
+      line-height: 1;
+      text-transform: lowercase;
+    }
+
+    .text-cursive {
+      font-family: var(--font-cursive);
+      color: var(--accent-blue);
+      font-size: 3rem;
+      transform: rotate(-5deg);
+    }
+    
+    .text-cursive.dark {
+      color: var(--text-dark);
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    /* Navegação Topo */
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Menu Lateral Flutuante */
+    .side-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 15px 10px;
+      border-radius: 30px;
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .side-nav i {
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    .side-nav i:hover {
+      color: var(--accent-blue);
+      transform: scale(1.2);
+    }
+
+    /* Ícone de Pasta (CSS Shape) */
+    .folder {
+      width: 60px;
+      height: 45px;
+      background-color: var(--accent-blue);
+      border-radius: 0 5px 5px 5px;
+      position: relative;
+      display: inline-block;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .folder::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      width: 25px;
+      height: 10px;
+      background-color: var(--accent-blue);
+      border-radius: 5px 5px 0 0;
+    }
+    .folder:hover {
+      transform: scale(1.1) rotate(3deg);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content .text-cursive {
+      position: absolute;
+      top: -30px;
+      left: -40px;
+      z-index: 3;
+    }
+
+    .hero-year {
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .floating-btn {
+      position: absolute;
+      top: 10%;
+      right: 25%;
+      background: var(--accent-blue);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(122, 180, 225, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .floating-btn:hover {
+      background: var(--accent-blue-hover);
+      transform: translateY(-3px);
+    }
+
+    /* Elementos Flutuantes do Scrapbook */
+    .abs-elem { position: absolute; z-index: 1; }
+    .f-1 { top: 15%; left: 15%; transform: rotate(-10deg); }
+    .f-2 { top: 20%; right: 20%; width: 40px; height: 30px; }
+    .f-3 { bottom: 25%; left: 25%; }
+    .f-4 { bottom: 20%; right: 30%; transform: rotate(15deg); }
+    
+    .floating-icon {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      font-size: 1.5rem;
+    }
+    .i-figma { top: 35%; right: 15%; color: #F24E1E; transform: rotate(10deg); }
+    .i-notion { top: 25%; left: 25%; color: #000; transform: rotate(-5deg); }
+    
+    .floating-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .img-1 { top: 40%; left: 10%; transform: rotate(-5deg); }
+    .img-2 { bottom: 30%; right: 15%; transform: rotate(8deg); }
+    .cursor-icon { bottom: 35%; left: 55%; font-size: 2rem; color: var(--text-dark); }
+
+    /* Seção Sobre Mim */
+    .about {
+      max-width: 1000px;
+      margin: 0 auto var(--spacing-section);
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .about-title-tag {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      z-index: 2;
+      font-size: 4rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-image-wrapper {
+      position: relative;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      filter: grayscale(100%);
+      box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .asterisk {
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      color: var(--text-dark);
+      font-size: 3rem;
+      background: var(--bg-color);
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    .about-content h2 {
+      margin-bottom: 20px;
+      font-size: 3.5rem;
+    }
+
+    .about-desc {
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .info-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .info-col h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding-bottom: 5px;
+    }
+
+    .info-col ul {
+      list-style: none;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .info-col li {
+      margin-bottom: 5px;
+    }
+
+    /* Social Media Transição */
+    .social-media-intro {
+      text-align: center;
+      margin-bottom: var(--spacing-section);
+      position: relative;
+      padding: 50px 0;
+    }
+
+    /* Projetos */
+    .project-section {
+      max-width: 1100px;
+      margin: 0 auto var(--spacing-section);
+      padding: 0 20px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .project-info {
+      position: sticky;
+      top: 100px;
+    }
+
+    .project-info h2 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .project-info p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      position: relative;
+    }
+
+    /* Regra conjunta para imagens e vídeos nos grids */
+    .gallery-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gallery-img:hover {
+      transform: translateY(-5px);
+      filter: brightness(1.1);
+    }
+
+    .project-tag {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      font-size: 4rem;
+      z-index: 5;
+      text-shadow: 2px 2px 0px var(--bg-color);
+    }
+
+    /* Mockups */
+    .mockup-container {
+      max-width: 1200px;
+      margin: 0 auto var(--spacing-section);
+      padding: 0 20px;
+    }
+
+    .mockup-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    /* Specific Project Styles */
+    .gallery-cake .gallery-img {
+      height: 200px;
+    }
+    .gallery-cake {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
+      .about-grid, .project-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .title-serif {
+        font-size: 3.5rem;
+      }
+      
+      .about-image {
+        height: 300px;
+      }
+
+      .info-columns {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .hero {
+        height: 70vh;
+      }
+
+      .f-1, .f-2, .f-3, .f-4, .floating-img, .floating-icon {
+        display: none; 
+      }
+      
+      .side-nav {
+        display: none; 
+      }
+
+      .gallery-cake {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .project-gallery, .gallery-cake {
+        grid-template-columns: 1fr;
+      }
+      
+      .mockup-img {
+        height: 300px;
+      }
+    }
+
+    /* ESTILOS DO MODAL / LIGHTBOX (Adicionados) */
+    .media-modal {
+      display: none; /* Oculto por padrão */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      /* Fundo preto com opacidade 60%, permite ver o site esmaecido */
+      background-color: rgba(0, 0, 0, 0.6); 
+      backdrop-filter: blur(3px); /* Desfoque sutil no fundo para destacar a mídia */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-modal.active {
+      display: flex;
+    }
+
+    .modal-content-wrapper {
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Garante que a mídia expanda ao tamanho original, mas limitando às bordas da tela */
+    .modal-content-wrapper img,
+    .modal-content-wrapper video {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 50px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 1001;
+      line-height: 1;
+    }
+
+    .close-modal:hover {
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="side-nav">
+    <i class="fas fa-home"></i>
+    <i class="fas fa-user"></i>
+    <i class="fas fa-briefcase"></i>
+    <i class="fas fa-envelope"></i>
+  </nav>
+
+  <header>
+    <div>Social Media</div>
+    <div>Disponível</div>
+    <div>Anápolis, GO-BR</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <a href="#" class="floating-btn abs-elem" style="top: 15%; right: 20%;">
+        <i class="fab fa-behance"></i> See my work
+      </a>
+      
+      <div class="folder abs-elem f-1"></div>
+      <div class="folder abs-elem f-2"></div>
+      <div class="folder abs-elem f-3"></div>
+      <div class="folder abs-elem f-4"></div>
+      
+      <i class="fab fa-figma abs-elem floating-icon i-figma"></i>
+      <i class="fas fa-book abs-elem floating-icon i-notion"></i>
+      
+      <img src="https://picsum.photos/id/1025/200/200" alt="Scrapbook img 1" class="abs-elem floating-img img-1">
+      <img src="https://picsum.photos/id/1062/200/200" alt="Scrapbook img 2" class="abs-elem floating-img img-2">
+      
+      <i class="fas fa-mouse-pointer abs-elem cursor-icon"></i>
+
+      <div class="hero-content">
+        <span class="text-cursive">designer</span>
+        <h1 class="title-serif">portfolio</h1>
+        <div class="hero-year">(2025)</div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="text-cursive dark about-title-tag">sobre mim</div>
+      <div class="about-grid">
+        <div class="about-image-wrapper">
+          <img src="eu linda.jpg" alt="Portrait" class="about-image">
+          <i class="fas fa-asterisk asterisk"></i>
+        </div>
+        <div class="about-content">
+          <h2 class="text-cursive dark">Oi, eu sou a Julia</h2>
+          <p class="about-desc">
+            Sou uma profissional apaixonada por social media e marketing digital, baseada em Anápolis. 
+            Adoro criar conteúdos visuais atraentes e focados no público que resolvem problemas reais de comunicação. 
+            Com minha vivência em marketing e edição, construo a ponte perfeita entre a estética visual e os resultados estratégicos.
+          </p>
+          
+          <div class="info-columns">
+            <div class="info-col">
+              <h3>Experiência</h3>
+              <ul>
+                <li><strong>2024 - Presente</strong></li>
+                <li>Code Tower</li>
+                <li>UP Resgate</li>
+              </ul>
+            </div>
+            <div class="info-col">
+              <h3>Skills</h3>
+              <ul>
+                <li>Canva PRO</li>
+                <li>Figma</li>
+                <li>Social Media Design</li>
+                <li>Capcut</li>
+                <li>Pacote Office</li>
+              </ul>
+            </div>
+            <div class="info-col">
+              <h3>Contate-me</h3>
+              <ul>
+                <li>julia.santosspinheiro@gmail.com</li>
+                <li>(62) 99332-2946</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-media-intro">
+      <div class="folder abs-elem" style="top: 20%; left: 20%;"></div>
+      <div class="folder abs-elem" style="top: 60%; right: 25%;"></div>
+      <h2 class="title-serif">social media</h2>
+      <p class="subtitle">Criação de Conteúdo • Marketing Digital • Branding (2024 - 2026)</p>
+      <i class="fas fa-mouse-pointer" style="margin-top: 10px; font-size: 1.5rem;"></i>
+    </section>
+
+    <section class="project-section">
+      <div class="project-grid">
+        <div class="project-info">
+          <h2 class="title-serif">up resgate</h2>
+          <p>
+            Gestão da presença digital e da identidade visual do UP Resgate (Igreja Resgate). A meta foi comunicar a visão do grupo de forma atual e conectada, utilizando paletas bem definidas, artes estruturadas e vídeos com edições atraentes.
+          </p>
+          <p>
+            O escopo envolveu o design de templates para as redes sociais, estruturação visual do feed e a definição de uma linguagem padrão para manter a essência do ministério unificada.
+          </p>
+        </div>
+        <div class="project-gallery">
+          <img src="img2.jpg" alt="Real estate 1" class="gallery-img">
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
+            <source src="video1.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img1.jpg" alt="Real estate 3" class="gallery-img">
+          <img src="img3.jpg" alt="Real estate 4" class="gallery-img">
+          <div class="text-cursive dark project-tag">projeto 1</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mockup-container">
+      <img src="img4.jpg" alt="Cake Shop App Mockup on Jeans" class="mockup-img" style="height: 400px; object-position: top;">
+    </div>
+
+    <section class="project-section">
+      <div class="project-grid">
+        <div class="project-info">
+          <h2 class="title-serif">doçuras da thalita</h2>
+          <p>
+            Produção de conteúdo e suporte de marketing digital para a Doçuras da Thalita, confeitaria da minha família. O objetivo foi criar uma comunicação vibrante e de dar água na boca. Focamos em captar fotografias reais e bem iluminadas que fazem as cores e texturas das nossas sobremesas saltarem aos olhos.
+          </p>
+          <p>
+            O trabalho contínuo mistura a elaboração de cardápios intuitivos e artes modernas para avisos no Instagram oficial, criando um feed único e altamente atrativo que ajuda a impulsionar diretamente os pedidos diários e o nosso delivery.
+          </p>
+        </div>
+        <div class="project-gallery gallery-cake">
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
+            <source src="video2.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img7.jpeg" alt="Cake 2" class="gallery-img">
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
+            <source src="video3.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img12.jpeg" alt="Cake 3" class="gallery-img">
+          <img src="img13.jpg" alt="Cake 5" class="gallery-img">
+          <img src="img14.jpg" alt="Cake 6" class="gallery-img">
+          <div class="text-cursive dark project-tag" style="bottom: -20px;">projeto 2</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mockup-container">
+      <img src="carrossel.jpg" alt="Cake Shop App Mockup on Jeans" class="mockup-img" style="height: 400px; object-position: top;">
+    </div>
+
+    <section class="project-section">
+      <div class="project-grid">
+        <div class="project-info">
+          <h2 class="title-serif">bcc ifg</h2>
+          <p>
+            Desenvolvimento de estratégia e criação de conteúdo para o Instagram de Ciência da Computação do IFG Anápolis (BCC IFG). O objetivo foi criar uma linguagem visual que engajasse os estudantes universitários, sem perder a essência tecnológica da área.
+          </p>
+          <p>
+            O trabalho englobou a gestão completa da rede: desde a captação de imagens e edição de vídeos dinâmicos para eventos do curso até a padronização estética do feed.
+          </p>
+        </div>
+        <div class="project-gallery">
+            <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/2/400/600">
+            <source src="video6.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/2/400/600">
+            <source src="video4.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/2/400/600">
+            <source src="video5.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+
+          <img src="img15.jpg" alt="Code Tower 1" class="gallery-img">
+          
+          <div class="text-cursive dark project-tag">projeto 4</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mockup-container">
+      <img src="img16.jpg" alt="Code Tower Mockup" class="mockup-img">
+    </div>
+
+    <section class="project-section">
+      <div class="project-grid">
+        <div class="project-info">
+          <h2 class="title-serif">freelas</h2>
+          <p>
+           Criação ágil de peças gráficas para projetos freelance, englobando posts de aniversário, materiais para igrejas, slides personalizados e artes avulsas. O desafio é traduzir as necessidades específicas de cada cliente em formatos visuais atrativos e diretos.
+          </p>
+          <p>
+            Os designs priorizam a comunicação clara e uma estética sob medida, entregando uma experiência visual de alta qualidade que gera conexão rápida com o público nos mais diversos nichos.
+          </p>
+        </div>
+        
+        <div class="project-gallery gallery-cake">
+          <img src="img17.jpg" alt="Aurora 1" class="gallery-img">
+          
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
+            <source src="video7.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+
+          <img src="img18.jpg" alt="Aurora 3" class="gallery-img">
+          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
+            <source src="video8.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img19.jpg" alt="Aurora 5" class="gallery-img">
+          <img src="img20.jpg" alt="Aurora 6" class="gallery-img">
+          <div class="text-cursive dark project-tag" style="bottom: -20px;">avulsos</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mockup-container">
+      <img src="carrossel2.jpg" alt="Project Aurora Mockup" class="mockup-img" style="height: 400px;">
+    </div>
+
+  </main>
+
+  <div id="mediaModal" class="media-modal">
+    <span class="close-modal">&times;</span>
+    <div id="modalContentWrapper" class="modal-content-wrapper">
+      </div>
+  </div>
+
+  <script>
+    // Interatividade sutil: Parallax leve nas pastas da Hero Section ao mover o mouse
+    document.addEventListener("mousemove", (e) => {
+      const folders = document.querySelectorAll(".folder.abs-elem");
+      const mouseX = e.clientX / window.innerWidth - 0.5;
+      const mouseY = e.clientY / window.innerHeight - 0.5;
+
+      folders.forEach((folder, index) => {
+        const speed = (index + 1) * 20;
+        folder.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
+      });
+    });
+
+    // JAVASCRIPT DO MODAL / LIGHTBOX (Adicionado)
+    const modal = document.getElementById('mediaModal');
+    const modalContentWrapper = document.getElementById('modalContentWrapper');
+    const closeModal = document.querySelector('.close-modal');
+    // Seleciona todas as imagens das galerias e os mockups grandes
+    const mediaItems = document.querySelectorAll('.gallery-img, .mockup-img');
+
+    mediaItems.forEach(item => {
+      item.addEventListener('click', function() {
+        modalContentWrapper.innerHTML = ''; // Limpa o modal
+        
+        // Se for VÍDEO
+        if (this.tagName === 'VIDEO') {
+          const videoClone = this.cloneNode(true);
+          videoClone.classList.remove('gallery-img');
+          // Adiciona controles para que o usuário possa pausar/dar play no modal
+          videoClone.setAttribute('controls', 'true'); 
+          modalContentWrapper.appendChild(videoClone);
+        } 
+        // Se for IMAGEM
+        else if (this.tagName === 'IMG') {
+          const imgClone = this.cloneNode(true);
+          imgClone.classList.remove('gallery-img', 'mockup-img');
+          modalContentWrapper.appendChild(imgClone);
+        }
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Evita que a página role enquanto o modal estiver aberto
+      });
+    });
+
+    // Função para fechar o modal e retomar o estado normal
+    function closeMediaModal() {
+      modal.classList.remove('active');
+      modalContentWrapper.innerHTML = ''; // Limpa o conteúdo, o que faz o vídeo parar de tocar
+      document.body.style.overflow = 'auto'; // Restaura a rolagem da página
+    }
+
+    // Fechar ao clicar no "X"
+    closeModal.addEventListener('click', closeMediaModal);
+
+    // Fechar ao clicar no fundo esmaecido
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target === modalContentWrapper) {
+        closeMediaModal();
+      }
+    });
+  </script>
+</body>
+</html>
