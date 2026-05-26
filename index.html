@@ -432,6 +432,64 @@
         height: 300px;
       }
     }
+
+    /* ESTILOS DO MODAL / LIGHTBOX (Adicionados) */
+    .media-modal {
+      display: none; /* Oculto por padrão */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      /* Fundo preto com opacidade 60%, permite ver o site esmaecido */
+      background-color: rgba(0, 0, 0, 0.6); 
+      backdrop-filter: blur(3px); /* Desfoque sutil no fundo para destacar a mídia */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-modal.active {
+      display: flex;
+    }
+
+    .modal-content-wrapper {
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Garante que a mídia expanda ao tamanho original, mas limitando às bordas da tela */
+    .modal-content-wrapper img,
+    .modal-content-wrapper video {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 50px;
+      font-weight: 300;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 1001;
+      line-height: 1;
+    }
+
+    .close-modal:hover {
+      color: var(--accent-blue);
+    }
   </style>
 </head>
 <body>
@@ -479,7 +537,7 @@
       <div class="text-cursive dark about-title-tag">sobre mim</div>
       <div class="about-grid">
         <div class="about-image-wrapper">
-          <img src="https://picsum.photos/id/64/400/500?grayscale" alt="Portrait" class="about-image">
+          <img src="eu linda.jpg" alt="Portrait" class="about-image">
           <i class="fas fa-asterisk asterisk"></i>
         </div>
         <div class="about-content">
@@ -542,112 +600,135 @@
         </div>
         <div class="project-gallery">
           <img src="img2.jpg" alt="Real estate 1" class="gallery-img">
-          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/2/400/600">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video1.mp4" type="video/mp4">
             Seu navegador não suporta vídeos HTML5.
           </video>
-          <img src="https://picsum.photos/id/164/400/600" alt="Real estate 3" class="gallery-img">
-          <img src="https://picsum.photos/id/193/400/600" alt="Real estate 4" class="gallery-img">
+          <img src="img1.jpg" alt="Real estate 3" class="gallery-img">
+          <img src="img3.jpg" alt="Real estate 4" class="gallery-img">
           <div class="text-cursive dark project-tag">projeto 1</div>
         </div>
       </div>
     </section>
 
     <div class="mockup-container">
-      <img src="https://picsum.photos/id/367/1200/600" alt="Real Estate App Mockup on Fabric" class="mockup-img">
+      <img src="img4.jpg" alt="Cake Shop App Mockup on Jeans" class="mockup-img" style="height: 400px; object-position: top;">
     </div>
 
     <section class="project-section">
       <div class="project-grid">
         <div class="project-info">
-          <h2 class="title-serif">cake shop</h2>
+          <h2 class="title-serif">doçuras da thalita</h2>
           <p>
-            A vibrant, fun, and mouth-watering social media campaign for a local artisan cake shop. Moving away from traditional pastels, we opted for a highly saturated royal blue background to make the colorful desserts pop.
+            Produção de conteúdo e suporte de marketing digital para a Doçuras da Thalita, confeitaria da minha família. O objetivo foi criar uma comunicação vibrante e de dar água na boca. Focamos em captar fotografias reais e bem iluminadas que fazem as cores e texturas das nossas sobremesas saltarem aos olhos.
           </p>
           <p>
-            The aesthetic mixes Y2K web elements with modern food photography, creating a unique and highly engaging Instagram grid that significantly boosted their online orders.
+            O trabalho contínuo mistura a elaboração de cardápios intuitivos e artes modernas para avisos no Instagram oficial, criando um feed único e altamente atrativo que ajuda a impulsionar diretamente os pedidos diários e o nosso delivery.
           </p>
         </div>
         <div class="project-gallery gallery-cake">
-          <img src="https://picsum.photos/id/431/400/400" alt="Cake 1" class="gallery-img">
-          <img src="https://picsum.photos/id/425/400/400" alt="Cake 2" class="gallery-img">
-          <img src="https://picsum.photos/id/1080/400/400" alt="Cake 3" class="gallery-img">
-          <img src="https://picsum.photos/id/112/400/400" alt="Cake 4" class="gallery-img">
-          <img src="https://picsum.photos/id/23/400/400" alt="Cake 5" class="gallery-img">
-          <img src="https://picsum.photos/id/20/400/400" alt="Cake 6" class="gallery-img">
-          <div class="text-cursive dark project-tag" style="bottom: -20px;">project 2</div>
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video2.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img7.jpeg" alt="Cake 2" class="gallery-img">
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video3.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img12.jpeg" alt="Cake 3" class="gallery-img">
+          <img src="img13.jpg" alt="Cake 5" class="gallery-img">
+          <img src="img14.jpg" alt="Cake 6" class="gallery-img">
+          <div class="text-cursive dark project-tag" style="bottom: -20px;">projeto 2</div>
         </div>
       </div>
     </section>
 
     <div class="mockup-container">
-      <img src="https://picsum.photos/id/1059/1200/600" alt="Cake Shop App Mockup on Jeans" class="mockup-img" style="height: 400px; object-position: top;">
+      <img src="carrossel.jpg" alt="Cake Shop App Mockup on Jeans" class="mockup-img" style="height: 400px; object-position: top;">
     </div>
 
     <section class="project-section">
       <div class="project-grid">
         <div class="project-info">
-          <h2 class="title-serif">code tower</h2>
+          <h2 class="title-serif">bcc ifg</h2>
           <p>
-            Marketing materials and social media motion graphics designed for the marketing team of a tech-focused Junior Enterprise. The visual language needed to appeal to university students while maintaining a professional software development edge.
+            Desenvolvimento de estratégia e criação de conteúdo para o Instagram de Ciência da Computação do IFG Anápolis (BCC IFG). O objetivo foi criar uma linguagem visual que engajasse os estudantes universitários, sem perder a essência tecnológica da área.
           </p>
           <p>
-            This included dynamic promotional videos created for internal events and a centralized aesthetic guideline to unify the enterprise's digital presence across platforms.
+            O trabalho englobou a gestão completa da rede: desde a captação de imagens e edição de vídeos dinâmicos para eventos do curso até a padronização estética do feed.
           </p>
         </div>
         <div class="project-gallery">
-          <img src="https://picsum.photos/id/201/400/600" alt="Code Tower 1" class="gallery-img">
-          
-          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/2/400/600">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video6.mp4" type="video/mp4">
             Seu navegador não suporta vídeos HTML5.
           </video>
           
-          <img src="https://picsum.photos/id/119/400/600" alt="Code Tower 3" class="gallery-img">
-          <img src="https://picsum.photos/id/180/400/600" alt="Code Tower 4" class="gallery-img">
-          <div class="text-cursive dark project-tag">project 3</div>
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video4.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video5.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+
+          <img src="img15.jpg" alt="Code Tower 1" class="gallery-img">
+          
+          <div class="text-cursive dark project-tag">projeto 4</div>
         </div>
       </div>
     </section>
 
     <div class="mockup-container">
-      <img src="https://picsum.photos/id/48/1200/600" alt="Code Tower Mockup" class="mockup-img">
+      <img src="img16.jpg" alt="Code Tower Mockup" class="mockup-img">
     </div>
 
     <section class="project-section">
       <div class="project-grid">
         <div class="project-info">
-          <h2 class="title-serif">project aurora</h2>
+          <h2 class="title-serif">freelas</h2>
           <p>
-            A clean, functional user interface designed for a complex electronic process management dashboard. The challenge was translating heavy institutional data logic into an accessible, intuitive visual format.
+           Criação ágil de peças gráficas para projetos freelance, englobando posts de aniversário, materiais para igrejas, slides personalizados e artes avulsas. O desafio é traduzir as necessidades específicas de cada cliente em formatos visuais atrativos e diretos.
           </p>
           <p>
-            The UI prioritizes minimalism and clear data visualization, creating a seamless experience for academic staff interacting with backend system functionalities daily.
+            Os designs priorizam a comunicação clara e uma estética sob medida, entregando uma experiência visual de alta qualidade que gera conexão rápida com o público nos mais diversos nichos.
           </p>
         </div>
         
         <div class="project-gallery gallery-cake">
-          <img src="https://picsum.photos/id/250/400/400" alt="Aurora 1" class="gallery-img">
+          <img src="img17.jpg" alt="Aurora 1" class="gallery-img">
           
-          <video class="gallery-img" autoplay loop muted playsinline poster="https://picsum.photos/id/3/400/400">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video7.mp4" type="video/mp4">
             Seu navegador não suporta vídeos HTML5.
           </video>
 
-          <img src="https://picsum.photos/id/175/400/400" alt="Aurora 3" class="gallery-img">
-          <img src="https://picsum.photos/id/163/400/400" alt="Aurora 4" class="gallery-img">
-          <img src="https://picsum.photos/id/160/400/400" alt="Aurora 5" class="gallery-img">
-          <img src="https://picsum.photos/id/366/400/400" alt="Aurora 6" class="gallery-img">
-          <div class="text-cursive dark project-tag" style="bottom: -20px;">project 4</div>
+          <img src="img18.jpg" alt="Aurora 3" class="gallery-img">
+          <video class="gallery-img" autoplay loop muted playsinline>
+            <source src="video8.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <img src="img19.jpg" alt="Aurora 5" class="gallery-img">
+          <img src="img20.jpg" alt="Aurora 6" class="gallery-img">
+          <div class="text-cursive dark project-tag" style="bottom: -20px;">avulsos</div>
         </div>
       </div>
     </section>
 
     <div class="mockup-container">
-      <img src="https://picsum.photos/id/1/1200/600" alt="Project Aurora Mockup" class="mockup-img">
+      <img src="carrossel2.jpg" alt="Project Aurora Mockup" class="mockup-img" style="height: 400px;">
     </div>
 
   </main>
+
+  <div id="mediaModal" class="media-modal">
+    <span class="close-modal">&times;</span>
+    <div id="modalContentWrapper" class="modal-content-wrapper">
+      </div>
+  </div>
 
   <script>
     // Interatividade sutil: Parallax leve nas pastas da Hero Section ao mover o mouse
@@ -660,6 +741,54 @@
         const speed = (index + 1) * 20;
         folder.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
       });
+    });
+
+    // JAVASCRIPT DO MODAL / LIGHTBOX (Adicionado)
+    const modal = document.getElementById('mediaModal');
+    const modalContentWrapper = document.getElementById('modalContentWrapper');
+    const closeModal = document.querySelector('.close-modal');
+    // Seleciona todas as imagens das galerias e os mockups grandes
+    const mediaItems = document.querySelectorAll('.gallery-img, .mockup-img');
+
+    mediaItems.forEach(item => {
+      item.addEventListener('click', function() {
+        modalContentWrapper.innerHTML = ''; // Limpa o modal
+        
+        // Se for VÍDEO
+        if (this.tagName === 'VIDEO') {
+          const videoClone = this.cloneNode(true);
+          videoClone.classList.remove('gallery-img');
+          // Adiciona controles para que o usuário possa pausar/dar play no modal
+          videoClone.setAttribute('controls', 'true'); 
+          modalContentWrapper.appendChild(videoClone);
+        } 
+        // Se for IMAGEM
+        else if (this.tagName === 'IMG') {
+          const imgClone = this.cloneNode(true);
+          imgClone.classList.remove('gallery-img', 'mockup-img');
+          modalContentWrapper.appendChild(imgClone);
+        }
+        
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Evita que a página role enquanto o modal estiver aberto
+      });
+    });
+
+    // Função para fechar o modal e retomar o estado normal
+    function closeMediaModal() {
+      modal.classList.remove('active');
+      modalContentWrapper.innerHTML = ''; // Limpa o conteúdo, o que faz o vídeo parar de tocar
+      document.body.style.overflow = 'auto'; // Restaura a rolagem da página
+    }
+
+    // Fechar ao clicar no "X"
+    closeModal.addEventListener('click', closeMediaModal);
+
+    // Fechar ao clicar no fundo esmaecido
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target === modalContentWrapper) {
+        closeMediaModal();
+      }
     });
   </script>
 </body>
